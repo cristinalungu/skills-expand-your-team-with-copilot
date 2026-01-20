@@ -474,7 +474,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
   // Function to share activity
   function shareActivity(name, details, platform) {
-    const activityUrl = window.location.href;
+    const activityUrl = window.location.origin + window.location.pathname;
     const formattedSchedule = formatSchedule(details);
     const shareText = `Check out ${name} at Mergington High School! ${details.description} Schedule: ${formattedSchedule}`;
     const encodedText = encodeURIComponent(shareText);
@@ -491,13 +491,30 @@ document.addEventListener("DOMContentLoaded", () => {
         window.location.href = `mailto:?subject=${encodeURIComponent(name + ' - Mergington High School')}&body=${encodedText}%0A%0A${encodedUrl}`;
         break;
       case 'copy':
-        // Copy link to clipboard
+        // Copy link to clipboard with fallback for older browsers
         const textToCopy = `${shareText}\n\n${activityUrl}`;
-        navigator.clipboard.writeText(textToCopy).then(() => {
-          showMessage('Link copied to clipboard!', 'success');
-        }).catch(() => {
-          showMessage('Failed to copy link', 'error');
-        });
+        if (navigator.clipboard && navigator.clipboard.writeText) {
+          navigator.clipboard.writeText(textToCopy).then(() => {
+            showMessage('Link copied to clipboard!', 'success');
+          }).catch(() => {
+            showMessage('Failed to copy link', 'error');
+          });
+        } else {
+          // Fallback for browsers that don't support clipboard API
+          const textArea = document.createElement('textarea');
+          textArea.value = textToCopy;
+          textArea.style.position = 'fixed';
+          textArea.style.left = '-999999px';
+          document.body.appendChild(textArea);
+          textArea.select();
+          try {
+            document.execCommand('copy');
+            showMessage('Link copied to clipboard!', 'success');
+          } catch (err) {
+            showMessage('Failed to copy link', 'error');
+          }
+          document.body.removeChild(textArea);
+        }
         break;
     }
   }
