@@ -664,3 +664,66 @@ footer {
 #logout-button:hover {
   background-color: rgba(255, 255, 255, 0.3);
 }
+
+/* Difficulty Badge Styles */
+.difficulty-badge {
+  display: inline-block;
+  padding: 4px 10px;
+  border-radius: 12px;
+  font-size: 0.75rem;
+  font-weight: bold;
+  margin-left: 8px;
+  margin-bottom: 8px;
+}
+
+.difficulty-beginner {
+  background-color: #e8f5e9;
+  color: #2e7d32;
+  border: 1px solid #2e7d32;
+}
+
+.difficulty-intermediate {
+  background-color: #fff3e0;
+  color: #e65100;
+  border: 1px solid #e65100;
+}
+
+.difficulty-advanced {
+  background-color: #ffebee;
+  color: #c62828;
+  border: 1px solid #c62828;
+}
+
+/* Difficulty Filter Styles */
+.difficulty-filter-container {
+  margin-top: 15px;
+}
+
+.difficulty-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.difficulty-filter {
+  padding: 8px 12px;
+  border: 1px solid var(--border);
+  background-color: var(--surface);
+  cursor: pointer;
+  border-radius: 4px;
+  text-align: left;
+  transition: all 0.2s ease;
+  font-size: 0.85rem;
+}
+
+.difficulty-filter:hover {
+  background-color: var(--border-light);
+  border-color: var(--primary-light);
+}
+
+.difficulty-filter.active {
+  background-color: var(--primary);
+  color: var(--primary-text);
+  border-color: var(--primary);
+  font-weight: bold;
+}
